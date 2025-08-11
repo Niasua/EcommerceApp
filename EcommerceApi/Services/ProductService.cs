@@ -38,7 +38,7 @@ public class ProductService : IProductService
         existing.Name = product.Name;
         existing.CategoryId = product.CategoryId;
 
-        await _repo.UpdateAsync(product);
+        await _repo.UpdateAsync(existing);
     }
 
     public async Task DeleteProductAsync(int id)
