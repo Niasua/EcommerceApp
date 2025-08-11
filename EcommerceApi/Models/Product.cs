@@ -13,7 +13,7 @@ public class Product
     public int CategoryId { get; set; }
     public Category Category { get; set; }
 
-    public List<SaleProduct> SaleProduct { get; set; } = new();
+    public List<SaleProduct> SaleProducts { get; set; } = new();
 
     public bool isDeleted { get; set; }
 }
