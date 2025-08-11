@@ -30,11 +30,12 @@ public class EcommerceContext : DbContext
         modelBuilder.Entity<SaleProduct>()
             .HasOne(sp => sp.Product)
             .WithMany(p => p.SaleProducts)
-            .HasForeignKey(sp => sp.SaleId);
+            .HasForeignKey(sp => sp.ProductId);
 
         // Soft Delete
         modelBuilder.Entity<Product>().HasQueryFilter(p => !p.isDeleted);
         modelBuilder.Entity<Category>().HasQueryFilter(c => !c.isDeleted);
         modelBuilder.Entity<Sale>().HasQueryFilter(s => !s.isDeleted);
+        modelBuilder.Entity<SaleProduct>().HasQueryFilter(sp => !sp.Product.isDeleted);
     }
 }
