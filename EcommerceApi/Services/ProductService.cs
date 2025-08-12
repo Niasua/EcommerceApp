@@ -6,7 +6,6 @@ namespace EcommerceApi.Services;
 public class ProductService : IProductService
 {
     private readonly IProductRepository _repo;
-
     public ProductService(IProductRepository repo)
     {
         _repo = repo;
@@ -16,37 +15,25 @@ public class ProductService : IProductService
     {
         var products = await _repo.GetProductsAsync(pageNumber, pageSize);
         var totalCount = await _repo.GetTotalCountAsync();
-        return (products, totalCount);
     }
 
-    public async Task<Product> GetProductByIdAsync(int id)
+    public Task<Product> GetProductByIdAsync(int id)
     {
-        return await _repo.GetByIdAsync(id);
+        throw new NotImplementedException();
     }
 
-    public async Task AddProductAsync(Product product)
+    public Task AddProductAsync(Product product)
     {
-        await _repo.AddAsync(product);
+        throw new NotImplementedException();
     }
 
-    public async Task UpdateProductAsync(Product product)
+    public Task UpdateProductAsync(Product product)
     {
-        var existing = await _repo.GetByIdAsync(product.Id);
-        if (existing == null)
-            throw new Exception("Product not found");
-
-        existing.Name = product.Name;
-        existing.CategoryId = product.CategoryId;
-
-        await _repo.UpdateAsync(existing);
+        throw new NotImplementedException();
     }
 
-    public async Task DeleteProductAsync(int id)
+    public Task DeleteProductAsync(int id)
     {
-        var product = await _repo.GetByIdAsync(id);
-        if (product == null)
-            throw new Exception("Product not found.");
-
-        await _repo.SoftDeleteAsync(product);
+        throw new NotImplementedException();
     }
 }

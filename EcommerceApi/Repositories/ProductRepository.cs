@@ -1,5 +1,5 @@
-﻿using EcommerceApi.Data;
-using EcommerceApi.Models;
+﻿using EcommerceApi.Models;
+using EcommerceApi.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceApi.Repositories;
