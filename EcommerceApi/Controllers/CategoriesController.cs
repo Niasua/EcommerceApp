@@ -47,6 +47,7 @@ public class CategoriesController : ControllerBase
     {
         if (id != category.Id)
             return BadRequest("Id mismatch");
+
         try
         {
             await _service.UpdateAsync(category);
@@ -57,6 +58,7 @@ public class CategoriesController : ControllerBase
             return NotFound(e.Message);
         }
     }
+
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCategory(int id)

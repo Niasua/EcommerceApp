@@ -8,39 +8,39 @@ namespace EcommerceApi.Services;
 
 public class CategoryService : ICategoryService
 {
-    private readonly EcommerceContext _context;
+    private readonly ICategoryRepository _repo;
 
-    public CategoryService(EcommerceContext context)
+    public CategoryService(ICategoryRepository repo)
     {
-        _context = context;
+        _repo = repo;
     }
 
     public async Task AddAsync(Category category)
     {
-        await _context.Categories.AddAsync(category);
-        await _context.SaveChangesAsync();
+        await _repo.AddAsync(category);
     }
 
     public async Task<Category> GetByIdAsync(int id)
     {
-        return await _context.Categories.FindAsync(id);
+        return await _repo.GetByIdAsync(id);
     }
 
     public async Task<IEnumerable<Category>> GetCategoriesAsync()
     {
-        return await _context.Categories.ToListAsync();
+        return await _repo.GetCategoriesAsync();
     }
 
-    public async Task SoftDeleteAsync(Category category)
+    public async Task SoftDeleteAsync(int id)
     {
-        category.isDeleted = true;
-        _context.Categories.Update(category);
-        await _context.SaveChangesAsync();
+        var existing = await _repo.GetByIdAsync(id);
+        if (existing == null)
+            throw new Exception("Category not found");
+
+        await _repo.SoftDeleteAsync(existing);
     }
 
     public async Task UpdateAsync(Category category)
     {
-        _context.Categories.Update(category);
-        await _context.SaveChangesAsync();
+        await _repo.UpdateAsync(category);
     }
 }
