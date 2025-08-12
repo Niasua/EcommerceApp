@@ -18,7 +18,7 @@ public class SaleProductRepository : ISaleProductRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<SaleProduct> GetByIdAsync(int saleId, int productId)
+    public async Task<SaleProduct> GetByIdsAsync(int saleId, int productId)
     {
         return await _context.SaleProducts
             .FirstOrDefaultAsync(sp => sp.SaleId == saleId && sp.ProductId == productId);
@@ -36,12 +36,6 @@ public class SaleProductRepository : ISaleProductRepository
         return await _context.SaleProducts
             .Where(sp => sp.SaleId == saleId && !sp.Product.isDeleted && !sp.Sale.isDeleted)
             .ToListAsync();
-    }
-
-    public async Task SoftDeleteAsync(SaleProduct saleProduct)
-    {
-        _context.SaleProducts.Remove(saleProduct);
-        await _context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(SaleProduct saleProduct)
